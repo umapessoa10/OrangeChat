@@ -416,7 +416,9 @@
     input.addEventListener("keyup", (event) => {
       if (event.key === "Enter") {
         console.log('Enter key pressed')
-        sendMessage(input.value)
+          if (input.value !== "") {
+              sendMessage(input.value)
+          }
       }
     });
 
