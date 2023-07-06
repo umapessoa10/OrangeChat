@@ -1,0 +1,554 @@
+<html>
+<head>
+    <title>OrangeChat</title>
+    <style>
+
+        :root {
+            /* CSS HEX */
+            --bg-black: #03071eff;
+            --bg-black-1: #141833ff;
+            --bg-black-2: #262a44ff;
+            --bg-black-3: #5c65a3;
+            --text-white: #b8bee5ff;
+            --red-orange: #d00000ff;
+            --red-orange-1: #dc2f02ff;
+            --red-orange-2: #e85d04ff;
+            --red-orange-3: #f48c06ff;
+            --red-orange-4: #faa307ff;
+            --red-orange-5: #ffba08ff;
+
+
+            --bg-black-hsl: hsla(231, 82%, 6%, 1);
+            --red-orange-hsl: hsla(0, 100%, 41%, 1);
+            --red-orange-1-hsl: hsla(12, 98%, 44%, 1);
+            --red-orange-2-hsl: hsla(23, 97%, 46%, 1);
+            --red-orange-3-hsl: hsla(34, 95%, 49%, 1);
+            --red-orange-4-hsl: hsla(39, 96%, 50%, 1);
+            --red-orange-5-hsl: hsla(43, 100%, 52%, 1);
+        }
+
+
+        body {
+            padding: 0;
+            border: 0;
+            font-family: 'Trebuchet MS';
+            background-color: var(--bg-black);
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(63, 178, 224);
+            display: flex;
+        }
+
+        .contacts {
+            width: 20%;
+            height: 100%;
+            background-color: var(--bg-black);
+            border-right: 5px solid var(--bg-black-2);
+        }
+
+        .chat {
+          width: 80%;
+          height: 100%;
+          background-image: url('OfcBG.svg');
+          background-color: var(--bg-black);
+          /*background-repeat: no-repeat;*/
+          background-size: 100% auto;
+          overflow-y: scroll;
+        }
+
+
+        .contact {
+            width: 100%;
+            height: 10%;
+            background-color: var(--bg-black-1);
+            border: none;
+            border-bottom: 3px solid var(--red-orange-3);
+            border-top: 3px solid var(--red-orange-3);
+            display: flex; /* Changed to flex */
+            align-items: center; /* Added to vertically center items */
+        }
+
+        .contact:hover {
+            cursor: pointer;
+            background-color: var(--bg-black-2);
+        }
+
+        .contact img {
+            border-radius: 50%;
+            padding: 15px;
+            width: 15%;
+            height: auto; /* Added to maintain aspect ratio */
+        }
+
+        .contact h1 {
+            margin: 0; /* Added to remove default margin */
+            color: var(--text-white);
+        }
+
+        .input {
+            font-size: 20px;
+            padding-left: 10px;
+            background-color: var(--red-orange-3);
+            width: 95%;
+            border: 3px solid var(--red-orange-2);
+            border-radius: 5px;
+        }
+
+        .input-container {
+            border: none;
+            width: 63.5%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            position: fixed;
+            bottom: 10px;
+            background-color: var(--bg-black-2);
+            z-index: 1293810938;
+        }
+
+        .input-container button {
+            width: 35px;
+            height: 35px;
+            background-color: var(--red-orange);
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .message {
+            background-color: var(--red-orange-3);
+            border: 3px solid var(--red-orange-2);
+            border-radius: 10px;
+            padding: 3px;
+            padding-left: 10px;
+            margin: 10px;
+            max-width: 25%;
+            position: relative;
+            z-index: 0;
+            
+        }
+
+        .account {
+            right: 0;
+            width: 25%;
+            align-self: right;
+            background-color: var(--bg-black-1);
+        }
+
+        #placeholder {
+          width: 70%;
+          border-radius: 50%;
+          margin: 30px;
+          cursor: pointer;
+          opacity: 1;
+          transition: ease 0.3s;
+          position: relative;
+          border: 2px solid var(--red-orange-3);
+        }
+
+        #placeholder:hover {
+          opacity: 0.3;
+        }
+
+        .account textarea {
+            resize: none;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            width: 95%;
+            height: 50%;
+            font-size: 200%;
+            padding-left: 5px;
+            color: var(--text-white);
+            margin-left: 15px;
+        }
+
+        .account h2 {
+            color: var(--red-orange-4);
+            padding-left: 10px;
+        }
+
+        .account input {
+            margin-left: 15px;
+            padding-left: 3px;
+            width: 75%;
+            height: 35px;
+            font-size: 20px;
+            border: 3px solid var(--bg-black-2);
+            border-radius: 5px;
+            font-weight: bold;
+            background-color: var(--bg-black-1);
+            color: var(--text-white);
+        }
+
+        .delete {
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+
+        .delete img {
+          width: 35px;
+        }
+
+        .userchat {
+            margin-left: auto; 
+            margin-right: 10px;
+        }
+
+        .contacts .remaining img{
+            width: 80%;
+            margin-top: 30px;
+        }
+
+        #signin {
+            position: fixed;
+            display: none;
+            bottom: 0;
+            left: 30px;
+            width: 15%;
+            height: 30%;
+            background-color: var(--bg-black);
+            border: 5px solid var(--bg-black-2);
+            border-radius: 5px;
+            padding-top: 15px;
+            text-align: center;
+            z-index: 12038129038;
+            color: var(--text-white);
+            font-size: 17px;
+        }
+
+        .cadastrese {
+            margin-left: 10px;
+            border: none;
+            background-color: var(--red-orange-3);
+            cursor: pointer;
+            color: var(--bg-black);
+            transition: 0.3s ease;
+            padding: 4px;
+            border-radius: 5px;
+            font-size: 17px;
+        }
+
+        .cadastrese:hover {
+            background-color: var(--red-orange);
+            color: var(--text-white);
+            transform: scale(1.2);
+        }
+
+        .X {
+            position: absolute;
+            z-index: 1923810923809;
+            top: 15px;
+            right: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            color: var(--text-white);
+        }
+
+        .X:hover {
+            color: red;
+            transform: scale(1.2);
+        }
+
+        #login {
+          position: fixed;
+          display: none;
+          width: 30%;
+          height: 80%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: var(--bg-black);
+          border: 5px solid var(--bg-black-3);
+          padding: 20px;
+          padding-top: 15px;
+          border-radius: 10px;
+          z-index: 12389;
+          color: var(--text-white);
+        }
+
+        #nome, #email, #senha, #confirmar-senha {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+        }
+
+        #email {
+            --invalid: 0;
+        }
+
+        .cadastro {
+          width: 100%;
+          padding: 10px;
+          background-color: var(--bg-black);
+          color: var(--text-white);
+          border: 3px solid var(--bg-black-2);
+          border-radius: 10px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        #email:invalid {
+            --invalid: 1;
+          border-color: red;
+        }
+
+        #status {
+            color: var(--text-white);
+            display: none;
+        }
+
+        #alert {
+            position: fixed;
+            top: 45%;
+            left: 45%;
+            z-index: 190283019283019283012983019283901283908120938120938901283091283;
+            transform: translate(-50%, -50%);
+            width: 15%;
+            height: 25%;
+            display: none;
+            background-color: var(--bg-black);
+            border: 3px solid var(--bg-black-3);
+            border-radius: 5px;
+            color: var(--text-white);
+            text-align: center;
+            padding: 15px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div id="signin">
+        <p style="padding: 10px; padding-bottom: 5px; padding-top: 20px;">Hmm, parece que você não há uma conta </p>
+            <button class="cadastrese" onclick="openElement('login'); closeElement('signin');">Cadastre-se</button> 
+            <button class="X" onclick="closeElement('signin')">X</button>
+        
+    </div>
+    <div id="login">
+      <h1 style="text-align: center;">Login ou Criação de conta</h1>
+      <p>Nome:</p>
+      <input onkeydown="return alphaOnly(event);" type="text" placeholder="Escreva seu nome aqui" id="nome">
+      <p>Email:</p>
+      <input type="email" placeholder="Digite seu email" id="email">
+      <p>Senha:</p>
+      <input type="password" placeholder="Digite sua senha" id="senha">
+      <p>Confirmar Senha:</p>
+      <input type="password" placeholder="Digite novamente a senha" id="confirmar-senha">
+      <button class="cadastro" onclick="concluirCadastro()">Concluir Cadastro</button>
+      <p id="status">status</p>
+    </div>
+    <div id="alert">
+        <button class="X" onclick="closeElement('alert')">X</button>
+        <h1 id="changeh1">a</h1>
+        <p id="changep">a</p>
+    </div>
+
+    <div class="container">
+        <div class="contacts">
+            <div class="contact">
+                <img src="https://cdn.onlinewebfonts.com/svg/img_322855.png">
+                <h1>Nicolas</h1>
+            </div>
+            <div class="contact">
+                <img src="https://cdn.onlinewebfonts.com/svg/img_322855.png">
+                <h1>Roberto</h1>
+            </div>
+            <div class="contact">
+                <img src="https://cdn.onlinewebfonts.com/svg/img_322855.png">
+                <h1>Carol</h1>
+            </div>
+            <div class="contact">
+                <img src="https://cdn.onlinewebfonts.com/svg/img_322855.png">
+                <h1>Carlos</h1>
+            </div>
+            <div class="remaining">
+                <center>
+                    <img src="OfcLogo.svg">
+                </center>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="message userchat" id="1">
+                <h2>Eu</h2>
+                <p>Bom dia!</p>
+                <button class="delete" onclick="deleteById(1)">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4812/4812459.png">
+                </button>
+            </div>
+            <div class="message otherchat" id="2">
+                <h2>Carol</h2>
+                <p>Bom dia! Como vai</p>
+                <!--<button class="delete" onclick="deleteById(2)">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4812/4812459.png">
+                </button>-->
+            </div>
+            <div class="input-container">
+                <input id="tosend" class="input" type="text">
+                <button onclick="sendMessage(input.value)">Oi</button>
+            </div>
+            <button onclick="deleteAll()">Delete All</button>
+        </div>
+        <div class="account">
+            <center>
+                <img id="placeholder" onclick="replaceImage(event)" src="https://cdn-icons-png.flaticon.com/512/666/666201.png">
+            </center>
+            <h2>Seu Nome</h2>
+            <input type="text" placeholder="Escreva seu nome aqui..." id="irlname" value="Carlos Antônio da Silva">
+            <h2>Descrição</h2>
+            <center><textarea placeholder="Escreva sua descrição aqui...">Oi! Eu estou usando o OrangeChat</textarea></center>
+        </div>
+    </div>
+</body>
+<script>
+    const input = document.getElementById("tosend");
+    input.addEventListener("keyup", (event) => {
+      if (event.key === "Enter") {
+        console.log('Enter key pressed')
+        sendMessage(input.value)
+      }
+    });
+
+    function sendMessage(message) {
+      const chat = document.querySelector(".chat");
+
+      // Create a new message div
+      const newMessage = document.createElement("div");
+      newMessage.classList.add("message", "userchat");
+
+      // Create sender and message elements
+      const sender = document.createElement("h2");
+      sender.textContent = "Eu";
+      const content = document.createElement("p");
+      content.textContent = message;
+
+      // Create delete button for user's message
+      const deleteButton = document.createElement("button");
+      deleteButton.classList.add("delete");
+      deleteButton.innerHTML = '<img src="https://cdn-icons-png.flaticon.com/512/4812/4812459.png">';
+      deleteButton.addEventListener("click", function () {
+        deleteById(newMessage);
+      });
+
+      // Append sender, message, and delete button to new message div
+      newMessage.appendChild(sender);
+      newMessage.appendChild(content);
+      newMessage.appendChild(deleteButton);
+
+      // Append the new message to the chat container
+      chat.appendChild(newMessage);
+
+      // Clear input field
+      input.value = "";
+    }
+
+
+
+    function deleteById(id) {
+      const messageDiv = document.getElementById(id);
+      if (messageDiv) {
+        messageDiv.innerHTML = "<h2>Mensagem apagada</h2>";
+      }
+    }
+
+    function deleteAll() {
+      const messages = document.querySelectorAll(".message");
+      messages.forEach((message) => {
+        message.innerHTML = "<h2>Mensagem apagada</h2>";
+      });
+    }
+
+
+    function replaceImage(event) {
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      
+      input.onchange = function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          var img = new Image();
+          img.src = e.target.result;
+          
+          img.onload = function() {
+            var placeholder = document.getElementById('placeholder');
+            placeholder.src = img.src;
+          };
+        };
+        
+        reader.readAsDataURL(file);
+      };
+      
+      input.click();
+    }
+
+    function closeElement(element) {
+        document.getElementById(element).style.display = "none";
+    }
+
+    function openElement(element) {
+        document.getElementById(element).style.display = "block";
+    }
+
+    openElement("signin");
+
+    function concluirCadastro() {
+        let nome = document.getElementById("nome").value;
+        let email = document.getElementById("email").value;
+        let senha = document.getElementById("senha").value;
+        let consenha = document.getElementById("confirmar-senha").value;
+
+        const emailElement = document.getElementById("email");
+        const computedStyle = getComputedStyle(emailElement);
+        const isInvalid = computedStyle.getPropertyValue('--invalid').trim();
+
+        if (nome === "" || email === "" || isInvalid === '1' || senha === "" || consenha === "") {
+            alertMessage("Erro", "Existe no mínimo um campo em branco ou incompleto no seu cadastro, complete e tente novamente");
+        } else {
+            console.log("nenhum campo faltando ou inválido");
+            if (consenha !== senha) {
+                alertMessage("Senhas Diferentes", "O campo 'Senha' aparenta ser diferente que o campo 'Confirmar Senha'");
+            } else {
+                console.log("senhas iguais");
+                if (senha.length > 4) {
+                    closeElement('login');
+                    alertMessage("Cadastro Concluído!", `Olá ${nome}! Bem-vindo ao OrangeChat!`);
+                    var irlname = document.getElementById("irlname");
+                    irlname.value = nome; // Corrected variable name from 'name' to 'nome'
+                } else {
+                    alertMessage("Erro", "A senha deve conter cinco (5) ou mais caracteres");
+                }
+            }
+        }
+    }
+
+
+
+    function alertMessage(title, subtitle) {
+        document.getElementById("changeh1").innerHTML = title;
+        document.getElementById("changep").innerHTML = subtitle;
+        openElement("alert");
+    }
+
+    function alphaOnly(event) {
+      var key = event.keyCode;
+      return ((key >= 65 && key <= 90) || key == 8);
+    };
+
+</script>
+</html>
+
+
